@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>深夜不睡覺：逢甲爆肝與宵夜決策大師</title>
+  <title>深夜不睡覺：熬夜與宵夜解鎖大師</title>
   <script src="https://cdn.tailwindcss.com"></script>
   </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased pb-16">
 
   <nav class="border-b border-slate-800 bg-slate-900/60 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-      <span class="text-xl font-black bg-gradient-to-r text-transparent bg-clip-text from-indigo-400 to-cyan-400">🌙 FCU 熬夜決策大師</span>
-      <span class="text-xs text-slate-400 border border-slate-700 px-3 py-1 rounded-full bg-slate-800">GitHub Open Source</span>
+      <span class="text-xl font-black bg-gradient-to-r text-transparent bg-clip-text from-indigo-400 to-cyan-400">🌙 FCU 熬夜與宵夜解鎖器</span>
+      <span class="text-xs text-slate-400 border border-slate-700 px-3 py-1 rounded-full bg-slate-800">GitHub Verified</span>
     </div>
   </nav>
 
@@ -19,7 +19,7 @@
     
     <div class="lg:col-span-1 space-y-6">
       <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
-        <h2 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2">🧠 現狀與精神狀態</h2>
+        <h2 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2">🧠 狀態輸入</h2>
         <div class="space-y-4">
           <div>
             <label class="block text-sm text-slate-400 mb-1">明天第一堂課時間 (點)</label>
@@ -37,38 +37,46 @@
             <input type="range" id="mentalState" min="1" max="10" value="7" oninput="document.getElementById('mentalVal').innerText = this.value + ' 分'" class="w-full accent-indigo-500">
           </div>
           <button onclick="calculateDecision()" class="w-full bg-indigo-600 hover:bg-indigo-500 transition-colors text-white font-bold py-3 rounded-xl mt-2 shadow-lg shadow-indigo-600/30">
-            運算爆肝指數
+            開始決策判定
           </button>
         </div>
       </div>
 
-      <div id="decisionResult" class="hidden p-5 rounded-2xl border transition-all duration-300 shadow-lg">
-        <h3 class="text-xs uppercase tracking-wider font-bold opacity-60">系統裁決建議</h3>
+      <div id="decisionResult" class="hidden p-5 rounded-2xl border transition-all duration-300 shadow-lg bg-slate-900 border-slate-800">
+        <h3 class="text-xs uppercase tracking-wider font-bold opacity-60">系統分析結果</h3>
         <p id="decisionTitle" class="text-2xl font-black my-2"></p>
         <p id="decisionReason" class="text-sm leading-relaxed opacity-90"></p>
       </div>
     </div>
 
-    <div class="lg:col-span-2 space-y-6">
+    <div class="lg:col-span-2 space-y-6 relative">
       
+      <div id="snackLockOverlay" class="absolute inset-0 bg-slate-950/85 z-40 rounded-2xl flex flex-col items-center justify-center text-center p-6 backdrop-blur-sm transition-all duration-300">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-sm shadow-2xl">
+          <span class="text-4xl">🔒</span>
+          <h3 class="text-xl font-black text-slate-200 mt-4 mb-2">宵夜模組尚未解鎖</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">請先填寫左側狀態並點擊「開始決策判定」。如果通過考驗被允許熬夜，系統才會為您開啟逢甲深夜美食清單！</p>
+        </div>
+      </div>
+
       <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl">
-        <h3 class="text-sm font-bold text-slate-400 mb-2 flex items-center gap-2">📍 逢甲大學周邊地圖區域</h3>
-        <div id="map" class="w-full h-64 bg-slate-800 rounded-xl flex items-center justify-center text-slate-500 border border-slate-700 relative overflow-hidden">
+        <h3 class="text-sm font-bold text-slate-400 mb-2 flex items-center gap-2">📍 逢甲大學深夜雷達地圖</h3>
+        <div id="map" class="w-full h-60 bg-slate-800 rounded-xl flex items-center justify-center text-slate-500 border border-slate-700 relative overflow-hidden">
           <span class="z-10 bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs">
-            [Google Maps API 預留區塊 - 未加載金鑰時顯示預設地圖背景]
+            Google Maps API 預留區塊
           </span>
-          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
         </div>
       </div>
 
       <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
-        <h2 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2">⚖️ 宵夜美食對比 (請選擇兩家進行比較)</h2>
+        <h2 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2">⚖️ 逢甲深夜美食交叉對比</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800" id="compareSlotA">
-            <p class="text-center text-sm text-slate-600 py-6">⬅️ 請從下方列表選擇宵夜 A</p>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 min-h-[160px]" id="compareSlotA">
+            <p class="text-center text-sm text-slate-600 py-12">⬅️ 請選擇宵夜 A 進行比較</p>
           </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800" id="compareSlotB">
-            <p class="text-center text-sm text-slate-600 py-6">➡️ 請從下方列表選擇宵夜 B</p>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 min-h-[160px]" id="compareSlotB">
+            <p class="text-center text-sm text-slate-600 py-12">➡️ 請選擇宵夜 B 進行比較</p>
           </div>
         </div>
       </div>
@@ -76,11 +84,11 @@
       <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
-            <h2 class="text-lg font-bold text-slate-200">🍔 逢甲校園周邊深夜美食 (內建 20 筆)</h2>
-            <p class="text-xs text-slate-500">點擊店家即可將其加入上方對比欄位</p>
+            <h2 class="text-lg font-bold text-slate-200">🍔 逢甲大學周邊深夜宵夜名單 (內建 20 筆)</h2>
+            <p class="text-xs text-slate-500">點擊卡片填入上方雙欄位對比</p>
           </div>
-          <button onclick="triggerNearbySearchAPI()" class="bg-slate-800 hover:bg-slate-700 text-xs text-cyan-400 px-3 py-2 rounded-xl border border-slate-700 transition-colors shrink-0">
-            🔄 串接 Places API 實時刷新
+          <button onclick="triggerNearbySearch()" class="bg-slate-800 hover:bg-slate-700 text-xs text-indigo-400 px-3 py-2 rounded-xl border border-slate-700 transition-colors shrink-0">
+            🔄 Places API 實時刷新 (架構預留)
           </button>
         </div>
 
@@ -92,28 +100,28 @@
   </main>
 
   <script>
-    // 1. 內建 20 筆逢甲大學周邊景點與深夜美食名單資料
+    // 內建逢甲大學附近 20 筆美食與景點位置資料庫
     const fcuMidnightFoods = [
-      { id: 1, name: "官芝霖大腸包小腸", type: "傳統小吃", score: 4.1, time: "16:00 - 23:30", dist: "逢甲正門 120m", desc: "逢甲夜市指標性排隊美食，炭火現烤糯米腸包裹特製醬料。", lat: 24.1798, lng: 120.6461 },
-      { id: 2, name: "一心素食臭豆腐", type: "夜市小吃", score: 4.3, time: "16:00 - 00:00", dist: "便當街 150m", desc: "外酥內嫩的現炸臭豆腐，搭配酥脆泡菜與特製麵線。", lat: 24.1802, lng: 120.6458 },
-      { id: 3, name: "大甲芋頭城", type: "甜點冰品", score: 4.4, time: "13:00 - 00:00", dist: "便當街 160m", desc: "綿密濃郁的蜜芋頭與Q彈芋圓，冰火雙重享受，爆肝救星。", lat: 24.1803, lng: 120.6459 },
-      { id: 4, name: "明倫蛋餅", type: "台式點心", score: 4.2, time: "15:00 - 00:30", dist: "福星路 180m", desc: "古早味粉漿蛋餅，口感軟Q微甜，特製甜辣醬老少咸宜。", lat: 24.1795, lng: 120.6466 },
-      { id: 5, name: "阿華黑輪店", type: "關東煮/小吃", score: 4.0, time: "16:30 - 01:00", dist: "文華路夜市 220m", desc: "獨門湯頭免費續喝，多種特製關東煮黑輪，溫暖深夜胃袋。", lat: 24.1809, lng: 120.6452 },
-      { id: 6, name: "刁民酸菜魚 (逢甲店)", type: "川味料理", score: 4.6, time: "11:30 - 02:00", dist: "福星路 350m", desc: "酸爽麻辣極度重口味，深夜營業到凌晨兩點，絕對提神。", lat: 24.1765, lng: 120.6462 },
-      { id: 7, name: "惡魔雞排 (逢甲總店)", type: "美式炸物", score: 4.3, time: "16:00 - 00:30", dist: "文華路 250m", desc: "厚切爆汁爽快感，外皮極酥、肉質飽滿，宵夜邪惡首選。", lat: 24.1805, lng: 120.6454 },
-      { id: 8, name: "永和豆漿大王 (福星店)", type: "中式早點/宵夜", score: 3.9, time: "19:00 - 10:00", dist: "福星路 400m", desc: "逢甲學子深夜 Debug、爆肝討論專題後的平價避難所。", lat: 24.1758, lng: 120.6441 },
-      { id: 9, name: "激旨燒鳥 (逢甲總店)", type: "日式串燒", score: 4.5, time: "17:00 - 00:30", dist: "文華道會館 600m", desc: "戶外露天日式居酒屋風，肉片包水果的特製串燒一絕。", lat: 24.1825, lng: 120.6482 },
-      { id: 10, name: "短腿阿鹿餅乾 (逢甲店)", type: "伴手禮/甜點", score: 4.4, time: "16:00 - 23:00", dist: "福星路 200m", desc: "逢甲限定可可風味曲奇，雖然不開到深夜，但適合傍晚囤貨。", lat: 24.1791, lng: 120.6455 },
-      { id: 11, name: "黃金右腿 (雙料雞腿王)", type: "創意炸物", score: 4.1, time: "16:00 - 00:00", dist: "文華路 150m", desc: "烘烤雞腿鋪滿濃郁起司醬，義式香草風味極佳。", lat: 24.1801, lng: 120.6456 },
-      { id: 12, name: "按摩雞排", type: "台式炸物", score: 4.0, time: "16:00 - 23:30", dist: "慶和街 280m", desc: "主打不裹粉的健康厚切雞排，先醃後烤，保留原始肉汁。", lat: 24.1803, lng: 120.6448 },
-      { id: 13, name: "海邊小屋 (乾燒蛤蜊)", type: "海鮮小吃", score: 4.5, time: "18:30 - 23:00", dist: "文華路 210m", desc: "現點現做大顆鮮美蛤蜊，精華黑蒜湯汁極其滋補。", lat: 24.1806, lng: 120.6451 },
-      { id: 14, name: "小時代雞蛋仔", type: "港式甜點", score: 4.3, time: "16:00 - 23:30", dist: "文華路 190m", desc: "邊緣酥脆、中心Q彈的道地港式風味，多種創意淋醬。", lat: 24.1804, lng: 120.6453 },
-      { id: 15, name: "牛排大叔 (大份量排餐)", type: "美式餐廳", score: 4.2, time: "11:30 - 23:00", dist: "逢甲商圈 500m", desc: "適合高強度燃燒腦力後，大口吃肉補充高鐵質與蛋白質。", lat: 24.1742, lng: 120.6471 },
-      { id: 16, name: "逢甲冰菓室", type: "冰品/水果", score: 4.1, time: "12:00 - 23:00", dist: "逢甲正門 100m", desc: "復古裝潢，主打一整顆水果直接當容器的爆量雪花冰。", lat: 24.1796, lng: 120.6462 },
-      { id: 17, name: "溫家地瓜球", type: "街頭小吃", score: 4.2, time: "16:00 - 00:00", dist: "文華路 130m", desc: "老字號地瓜球，越嚼越香，深夜刷題配電腦的絕佳小點心。", lat: 24.1799, lng: 120.6459 },
-      { id: 18, name: "紅茶臭豆腐", type: "創意小吃", score: 4.0, time: "16:00 - 00:30", dist: "逢甲旗艦夜市 300m", desc: "豆腐製程中加入伯爵紅茶釀造，搭配特製沾醬與醃製洋蔥。", lat: 24.1785, lng: 120.6445 },
-      { id: 19, name: "尊品原汁牛肉麵", type: "台式麵食", score: 4.1, time: "11:00 - 23:00", dist: "文華路 400m", desc: "厚切中藥紅燒牛肉麵，湯頭濃郁滑順，保證飽腹。", lat: 24.1812, lng: 120.6438 },
-      { id: 20, name: "糖姬冰品輕食館", type: "網美甜點", score: 4.3, time: "14:00 - 23:00", dist: "福星路 500m", desc: "精緻千層雪花冰與輕食，適合高壓研討後的甜食慰藉。", lat: 24.1735, lng: 120.6489 }
+      { id: 1, name: "官芝霖大腸包小腸", type: "經典必吃", score: 4.1, time: "16:00 - 23:30", dist: "逢甲正門 120m", desc: "逢甲夜市最出名的排隊炭烤小吃，蒜香濃厚。", lat: 24.1798, lng: 120.6461 },
+      { id: 2, name: "一心素食臭豆腐", type: "在地台式", score: 4.3, time: "16:00 - 00:00", dist: "便當街 150m", desc: "酥脆豆腐搭配滿滿泡菜，特製麵線深夜大滿足。", lat: 24.1802, lng: 120.6458 },
+      { id: 3, name: "大甲芋頭城", type: "甜點冰品", score: 4.4, time: "13:00 - 00:00", dist: "便當街 160m", desc: "綿密蜜芋頭，甜而不膩，通宵寫程式的糖分補給。", lat: 24.1803, lng: 120.6459 },
+      { id: 4, name: "明倫蛋餅", type: "人氣小吃", score: 4.2, time: "15:00 - 00:30", dist: "福星路 180m", desc: "古早味粉漿蛋餅，口感軟Q偏甜，深夜排隊夯品。", lat: 24.1795, lng: 120.6466 },
+      { id: 5, name: "阿華黑輪店", type: "關東煮", score: 4.0, time: "16:30 - 01:00", dist: "文華路夜市 220m", desc: "高湯免費續喝到飽，冬夜熬夜禦寒必備首選。", lat: 24.1809, lng: 120.6452 },
+      { id: 6, name: "刁民酸菜魚 (逢甲店)", type: "重口味川味", score: 4.6, time: "11:30 - 02:00", dist: "福星路 350m", desc: "酸爽香麻，辣度過癮。開到凌晨兩點，非常提神。", lat: 24.1765, lng: 120.6462 },
+      { id: 7, name: "惡魔雞排 (逢甲總店)", type: "罪惡炸物", score: 4.3, time: "16:00 - 00:30", dist: "文華路 250m", desc: "超厚切多汁雞排，咬下去極度罪惡，高熱量狂歡。", lat: 24.1805, lng: 120.6454 },
+      { id: 8, name: "永和豆漿大王 (福星店)", type: "宵夜避難所", score: 3.9, time: "19:00 - 10:00", dist: "福星路 400m", desc: "價格便宜、品項全面，期末考爆肝週的深夜食堂。", lat: 24.1758, lng: 120.6441 },
+      { id: 9, name: "激旨燒鳥 (逢甲總店)", type: "日式串燒", score: 4.5, time: "17:00 - 00:30", dist: "文華道會館 600m", desc: "露天座位極有氛圍，獨特肉片包水果串燒百吃不厭。", lat: 24.1825, lng: 120.6482 },
+      { id: 10, name: "短腿阿鹿餅乾 (逢甲店)", type: "伴手禮甜點", score: 4.4, time: "16:00 - 23:00", dist: "福星路 200m", desc: "逢甲限定可可曲奇，入口即化，傍晚提早買好當糧草。", lat: 24.1791, lng: 120.6455 },
+      { id: 11, name: "黃金右腿雙料雞腿王", type: "起司炸物", score: 4.1, time: "16:00 - 00:00", dist: "文華路 150m", desc: "現烤義式雞腿肉鋪上厚厚一層濃郁焗烤起司醬。", lat: 24.1801, lng: 120.6456 },
+      { id: 12, name: "按摩雞排", type: "碳烤炸物", score: 4.0, time: "16:00 - 23:30", dist: "慶和街 280m", desc: "主打不裹粉的健康厚切雞排，先醃後烤鎖住肉汁。", lat: 24.1803, lng: 120.6448 },
+      { id: 13, name: "海邊小屋乾燒蛤蜊", type: "海鮮小吃", score: 4.5, time: "18:30 - 23:00", dist: "文華路 210m", desc: "現點現煮大顆鮮美蛤蜊，精華黑蒜黑胡椒汁極其滋補。", lat: 24.1806, lng: 120.6451 },
+      { id: 14, name: "小時代雞蛋仔", type: "港式甜點", score: 4.3, time: "16:00 - 23:30", dist: "文華路 190m", desc: "酥脆與Q彈兼具的完美比例，多款創意淋醬可選。", lat: 24.1804, lng: 120.6453 },
+      { id: 15, name: "牛排大叔大份量排餐", type: "肉食主義", score: 4.2, time: "11:30 - 23:00", dist: "逢甲商圈 500m", desc: "適合高強度寫硬體實驗後，大口吃肉補鐵補充蛋白質。", lat: 24.1742, lng: 120.6471 },
+      { id: 16, name: "逢甲冰菓室", type: "打卡冰品", score: 4.1, time: "12:00 - 23:00", dist: "逢甲正門 100m", desc: "整顆水果當容器的爆量雪花冰，哈密瓜風味大推。", lat: 24.1796, lng: 120.6462 },
+      { id: 17, name: "溫家地瓜球", type: "街頭小零嘴", score: 4.2, time: "16:00 - 00:00", dist: "文華路 130m", desc: "老牌地瓜球，越嚼越香，極適合放在電腦旁一顆接一顆。", lat: 24.1799, lng: 120.6459 },
+      { id: 18, name: "紅茶臭豆腐", type: "新派小吃", score: 4.0, time: "16:00 - 00:30", dist: "逢甲旗艦夜市 300m", desc: "豆腐製程加入伯爵紅茶釀造，搭配特製醃洋蔥極解膩。", lat: 24.1785, lng: 120.6445 },
+      { id: 19, name: "尊品原汁牛肉麵", type: "台式飽腹", score: 4.1, time: "11:00 - 23:00", dist: "文華路 400m", desc: "紅燒湯頭醇厚、牛肉厚切大塊，吃完有滿滿罪惡飽足感。", lat: 24.1812, lng: 120.6438 },
+      { id: 20, name: "糖姬冰品輕食館", type: "精緻輕食", score: 4.3, time: "14:00 - 23:00", dist: "福星路 500m", desc: "精緻雪花千層冰，深夜甜食控高壓研討後的靈魂救贖。", lat: 24.1735, lng: 120.6489 }
     ];
 
     let selectedA = null;
@@ -121,14 +129,14 @@
     let googleMapInstance = null;
     let mapMarkers = [];
 
-    // 初始化：動態渲染 20 個店家按鈕
+    // 初始化：將 20 筆資料渲染到畫面上
     window.onload = function() {
       const grid = document.getElementById('snackGrid');
       grid.innerHTML = fcuMidnightFoods.map(food => `
         <button onclick="selectFoodForCompare(${food.id})" class="bg-slate-800 hover:bg-slate-700/80 p-3 rounded-xl border border-slate-700/60 text-left transition-all group hover:border-indigo-500/50">
           <div class="flex justify-between items-start">
-            <span class="font-bold text-slate-200 group-hover:text-indigo-400 transition-colors">${food.name}</span>
-            <span class="text-[10px] bg-slate-900 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">${food.type}</span>
+            <span class="font-bold text-slate-200 group-hover:text-indigo-400 transition-colors text-sm sm:text-base">${food.name}</span>
+            <span class="text-[10px] bg-slate-950 text-slate-400 px-1.5 py-0.5 rounded border border-slate-800 shrink-0">${food.type}</span>
           </div>
           <div class="flex items-center justify-between mt-2 text-xs text-slate-400">
             <span class="text-amber-400">★ ${food.score}</span>
@@ -138,7 +146,7 @@
       `).join('');
     };
 
-    // 2. 核心功能區塊：分析使用者是否該睡
+    // 2. 決策分析邏輯
     function calculateDecision() {
       const classTime = parseFloat(document.getElementById('classTime').value);
       const remainingWork = parseFloat(document.getElementById('remainingWork').value);
@@ -147,108 +155,114 @@
       const resultBox = document.getElementById('decisionResult');
       const title = document.getElementById('decisionTitle');
       const reason = document.getElementById('decisionReason');
+      const lockOverlay = document.getElementById('snackLockOverlay');
       
       resultBox.classList.remove('hidden');
       
-      // 規則 1：效率考量（精神狀態極差 < 5分）
+      // 判斷 A：效率考量（精神狀態極差 < 5分） -> 強制睡覺，鎖定宵夜
       if (mentalState < 5) {
-        title.innerText = "強制睡覺 🚨 (效率低下)";
-        reason.innerText = "你當前的精神疲乏值極高（低於 5 分）。在大腦神經元過度疲勞的狀態下，強行硬撐只會產生極多 Code Bug 或無法集中，請立刻離屏就寢。";
-        resultBox.className = "p-5 rounded-2xl border bg-red-500/10 text-red-400 border-red-500/30 shadow-red-950/20";
+        title.innerText = "強制睡覺！🚨 (效率極低)";
+        reason.innerText = "當前精力值（" + mentalState + "分）極低，大腦已進入當機邊緣。硬熬也只是在發呆，不准浪費時間。系統已同步封鎖深夜宵夜功能，立刻關閉螢幕去睡覺！";
+        resultBox.className = "p-5 rounded-2xl border bg-red-500/10 text-red-400 border-red-500/30";
+        
+        lockOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+        lockOverlay.querySelector('h3').innerText = "❌ 禁止選擇宵夜！";
+        lockOverlay.querySelector('p').innerText = "系統已對你發出強制就寢命令。精神極差不准再吃高熱量宵夜，現在立刻去躺平休息！";
         return;
       }
       
-      // 規則 2：早八優先（明天有早八 9點前，且剩餘工作 > 2小時）
+      // 判斷 B：早八優先（明天有早八 9點前，且剩餘工作 > 2小時） -> 強制睡覺，鎖定宵夜
       if (classTime < 9 && remainingWork > 2) {
-        title.innerText = "強制睡覺 ⏰ (早八優先)";
-        reason.innerText = "明天有早八核心課堂（" + classTime + "點），而你仍有高達 " + remainingWork + " 小時的進度未完。硬熬會徹底摧毀明天的作息，請即刻躺平，明早提前 2 小時起床衝刺。";
-        resultBox.className = "p-5 rounded-2xl border bg-orange-500/10 text-orange-400 border-orange-500/30 shadow-orange-950/20";
+        title.innerText = "強制睡覺！⏰ (早八地雷)";
+        reason.innerText = "明天一早有早八核心課程，而你還有超過 " + remainingWork + " 小時的工作堆積。繼續熬夜會徹底搞砸明天。建議現在立刻睡覺，明早提早起來趕工。今晚禁止宵夜！";
+        resultBox.className = "p-5 rounded-2xl border bg-orange-500/10 text-orange-400 border-orange-500/30";
+        
+        lockOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+        lockOverlay.querySelector('h3').innerText = "❌ 禁止選擇宵夜！";
+        lockOverlay.querySelector('p').innerText = "明天有早八還想著吃宵夜？為避免你吃完更睡不著，系統已鎖定美食名單，請立刻執行就寢指令。";
         return;
       }
       
-      // 規則 3：肝帝模式（精神尚可 >= 5分、明天沒早八，且工作量大）
+      // 判斷 C：肝帝模式（精神尚可 >= 5分、明天沒早八，且工作量大） -> 允許熬夜，解鎖宵夜
       if (mentalState >= 5 && classTime >= 9 && remainingWork >= 3) {
-        title.innerText = "解鎖：肝帝衝刺模式 🔥";
-        reason.innerText = "外部安全環境確認！明天沒有早八奪命連環催，且你目前的精力值充足（" + mentalState + "分）。手邊的光電專題或電路大作業進度落後，今晚適合泡杯咖啡發動引擎，通宵把它搞定。";
-        resultBox.className = "p-5 rounded-2xl border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-emerald-950/20";
+        title.innerText = "解鎖：肝帝衝刺模式！🔥";
+        reason.innerText = "明天沒有早八奪命催，且你當前精神飽滿（" + mentalState + "分），工作量龐大。今晚是個適合把進度推到爆的完美深夜，夜貓子引擎啟動！";
+        resultBox.className = "p-5 rounded-2xl border bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+        
+        // 成功解除遮罩鎖定
+        lockOverlay.classList.add('opacity-0', 'pointer-events-none');
         return;
       }
       
-      // 預設緩衝狀態
-      title.innerText = "溫和收尾後就寢 💤";
-      reason.innerText = "目前各項指標準入狀態平穩，無迫切通宵之必要。建議再推進 1 小時的工作進度，完成目前的模組劃分，即可安心休息。";
-      resultBox.className = "p-5 rounded-2xl border bg-indigo-500/10 text-indigo-400 border-indigo-500/30 shadow-indigo-950/20";
+      // 判斷 D：預設安全緩衝狀態（工作量不大） -> 允許宵夜當作收尾小點心
+      title.innerText = "建議溫和收尾後就寢 💤";
+      reason.innerText = "目前沒有火燒屁股的專題危機，明天也安全。建議花 30 分鐘把手邊的程式收尾。深夜肚子空空的話，下方宵夜已為你解鎖，吃完就去睡！";
+      resultBox.className = "p-5 rounded-2xl border bg-indigo-500/10 text-indigo-400 border-indigo-500/30";
+      lockOverlay.classList.add('opacity-0', 'pointer-events-none');
     }
 
-    // 3. 核心功能區塊：雙欄位美食交叉比較邏輯
+    // 3. 雙欄位美食對比填入邏輯
     function selectFoodForCompare(id) {
       const food = fcuMidnightFoods.find(f => f.id === id);
       
-      // 輪替填入 Slot A 與 Slot B
       if (!selectedA || (selectedA && selectedB)) {
         selectedA = food;
-        renderCompareCard('compareSlotA', food, 'A');
+        renderSlot('compareSlotA', food, 'A');
       } else {
         selectedB = food;
-        renderCompareCard('compareSlotB', food, 'B');
+        renderSlot('compareSlotB', food, 'B');
       }
       
-      // 如果 Google 地圖已載入，連動在地圖上標記或移動中心
+      // 地圖聯動：若地圖存在，將視角中心切換到該店位
       if (googleMapInstance && typeof google !== 'undefined') {
         googleMapInstance.panTo({ lat: food.lat, lng: food.lng });
         googleMapInstance.setZoom(16);
       }
     }
 
-    function renderCompareCard(slotId, food, label) {
-      const slot = document.getElementById(slotId);
-      slot.innerHTML = `
+    function renderSlot(slotId, food, label) {
+      document.getElementById(slotId).innerHTML = `
         <div class="space-y-2">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">位置 ${label}</span>
+            <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">店家 ${label}</span>
             <span class="text-xs text-amber-400 font-bold">★ ${food.score}</span>
           </div>
           <h4 class="text-base font-black text-slate-100 mt-1">${food.name}</h4>
-          <p class="text-xs text-slate-400"><b class="text-slate-300">營業時間：</b>${food.time}</p>
-          <p class="text-xs text-slate-400"><b class="text-slate-300">距離：</b>${food.dist}</p>
-          <p class="text-xs text-slate-500 italic bg-slate-900/80 p-2 rounded border border-slate-800 mt-2">${food.desc}</p>
+          <p class="text-xs text-slate-400"><span class="text-slate-500">時間：</span>${food.time}</p>
+          <p class="text-xs text-slate-400"><span class="text-slate-500">位置：</span>${food.dist}</p>
+          <p class="text-xs text-slate-400 bg-slate-900 p-2 rounded border border-slate-800 mt-2 leading-relaxed">${food.desc}</p>
         </div>
       `;
     }
 
-    // 4. 技術架構預留：Google Maps 與 Places API 初始化回呼
+    // 4. Google Maps JavaScript API 預留函式
     function initMap() {
-      // 逢甲大學正門座標中心點
-      const fcuCoordinates = { lat: 24.1796, lng: 120.6462 };
+      const fcuMainGate = { lat: 24.1796, lng: 120.6462 }; // 逢甲大學正門座標
       
-      // 建立 Google 地圖實例，套用深色調色盤樣式
       googleMapInstance = new google.maps.Map(document.getElementById("map"), {
-        center: fcuCoordinates,
+        center: fcuMainGate,
         zoom: 15,
-        mapId: "YOUR_DEVELOPER_MAP_ID", // 選擇性：用於自訂深色樣式
-        disableDefaultUI: true
+        disableDefaultUI: true // 精簡 UI 讓網頁更乾淨
       });
 
-      // 在地圖上一次性繪製內建的 20 個點位
+      // 將 20 筆點位用 Marker 渲染在地圖上
       fcuMidnightFoods.forEach(food => {
         const marker = new google.maps.Marker({
           position: { lat: food.lat, lng: food.lng },
           map: googleMapInstance,
-          title: food.name,
-          animation: google.maps.Animation.DROP
+          title: food.name
         });
         
-        // 點擊地圖標記，直接塞入前端比較面板
         marker.addListener("click", () => {
+          // 在地圖上點擊標記也能直接觸發對比
           selectFoodForCompare(food.id);
         });
         mapMarkers.push(marker);
       });
     }
 
-    // 5. 按鈕擴充功能：觸發後端 API (Nearby Search) 的封裝架構
-    function triggerNearbySearchAPI() {
-      alert("【環境安全提示】\n已成功觸發 Google Places API 機制。\n前端已做好請求封裝，在 GitHub 生產環境中，此請求會安全地發往後端代理 Server，保護你的 Key 不被爬蟲截獲。");
+    function triggerNearbySearch() {
+      alert("【GitHub 生產安全環境提示】\n已為您觸發 Google Places API Nearby Search 轉接架構。\n在生產環境中，此請求會自動附加後端伺服器的私密金鑰，確保您 GitHub 上的原始碼絕對安全！");
     }
   </script>
 </body>
